@@ -1,111 +1,152 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@import "tailwindcss";
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-orbitron: "Orbitron", sans-serif;
+  
+  --color-space-black: #020204;
+  --color-space-dark: #06060c;
+  --color-space-gray: #0f111a;
+  --color-cyan-glow: #00f0ff;
+  --color-blue-glow: #0088ff;
+  --color-hud-gray: rgba(255, 255, 255, 0.07);
+  --color-hud-border: rgba(0, 240, 255, 0.2);
+  --color-hud-border-active: rgba(0, 240, 255, 0.7);
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-cyber-flicker: cyber-flicker 0.15s infinite alternate;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+@keyframes cyber-flicker {
+  0% {
+    opacity: 0.95;
   }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+  100% {
+    opacity: 1;
   }
 }
 
-body {
-  margin: 0;
-}
+/* Custom base styles for scrollbar and selections */
+@layer base {
+  html, body {
+    background-color: var(--color-space-black);
+    color: #e2e8f0;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+  }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+  /* Custom futuristic scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-space-black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-hud-border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-cyan-glow);
   }
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+
+/* Sci-fi HUD and Glow utilities */
+.hud-grid {
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
+.text-glow-cyan {
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 8px rgba(0, 136, 255, 0.6), 0 0 20px rgba(0, 136, 255, 0.2);
+}
+
+.border-glow-cyan {
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.15), inset 0 0 10px rgba(0, 240, 255, 0.05);
+  border: 1px solid var(--color-hud-border);
+}
+
+.border-glow-cyan-active {
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.35), inset 0 0 15px rgba(0, 240, 255, 0.15);
+  border: 1px solid var(--color-hud-border-active);
+}
+
+/* Cyber HUD panel styling */
+.hud-panel {
+  position: relative;
+  background: rgba(6, 6, 12, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-hud-border);
   border-radius: 4px;
-  color: var(--text-h);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.hud-panel::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--color-cyan-glow);
+  border-left: 2px solid var(--color-cyan-glow);
+}
+
+.hud-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid var(--color-cyan-glow);
+  border-right: 2px solid var(--color-cyan-glow);
+}
+
+/* Futuristic Scanline Overlay */
+.scanline-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Star twinkling container */
+.stars-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-color: var(--color-space-black);
 }

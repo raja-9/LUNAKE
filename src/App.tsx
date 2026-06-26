@@ -8,6 +8,7 @@ import Intro from './components/Intro'
 import Navbar from './components/Navbar'
 import Starfield from './components/Starfield'
 import MoonHero from './components/MoonHero'
+import MoonViewer from './components/MoonViewer'
 import MoonInfo from './components/MoonInfo'
 import MiniGame from './components/MiniGame'
 import ContactForm from './components/ContactForm'
@@ -25,7 +26,7 @@ export default function App() {
   useEffect(() => {
     if (!launched) return
 
-    const sections = ['#hero', '#info', '#game', '#contact']
+    const sections = ['#hero', '#viewer', '#info', '#game', '#contact']
     
     const ctx = gsap.context(() => {
       sections.forEach((selector) => {
@@ -73,6 +74,9 @@ export default function App() {
           <main className="w-full flex flex-col relative">
             {/* R3F Interactive Moon Hero */}
             <MoonHero />
+
+            {/* Fullscreen Interactive Moon Viewer */}
+            <MoonViewer />
 
             {/* Suncalc Moon Telemetry Info */}
             <MoonInfo />

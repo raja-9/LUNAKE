@@ -28,18 +28,21 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6">
           <a href="#hero" className="text-gray-400 hover:text-cyan-glow hover:text-glow-cyan transition-colors">
-            [ 01 // ORBIT ]
+            [ 01 // OVERVIEW ]
+          </a>
+          <a href="#viewer" className="text-gray-400 hover:text-cyan-glow hover:text-glow-cyan transition-colors">
+            [ 02 // ORBIT ]
           </a>
           <a href="#info" className="text-gray-400 hover:text-cyan-glow hover:text-glow-cyan transition-colors">
-            [ 02 // DATA ]
+            [ 03 // DATA ]
           </a>
           <a href="#game" className="text-gray-400 hover:text-cyan-glow hover:text-glow-cyan transition-colors">
-            [ 03 // MISSION ]
+            [ 04 // MISSION ]
           </a>
           <a href="#contact" className="text-gray-400 hover:text-cyan-glow hover:text-glow-cyan transition-colors">
-            [ 04 // UPLINK ]
+            [ 05 // UPLINK ]
           </a>
         </nav>
 

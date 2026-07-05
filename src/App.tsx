@@ -12,6 +12,7 @@ import MoonViewer from './components/MoonViewer'
 import MoonInfo from './components/MoonInfo'
 import MiniGame from './components/MiniGame'
 import ContactForm from './components/ContactForm'
+import GamePage from './components/GamePage'
 
 // Initialize TanStack Query Client
 const queryClient = new QueryClient()
@@ -21,10 +22,22 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   const [launched, setLaunched] = useState(false)
+  const [currentRoute, setCurrentRoute] = useState(() => window.location.hash)
+
+  // Track hash route changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentRoute(window.location.hash)
+    }
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  const isGameRoute = currentRoute.startsWith('#/game') || currentRoute === '#game-page'
 
   // GSAP Scroll Animations once launched
   useEffect(() => {
-    if (!launched) return
+    if (!launched || isGameRoute) return
 
     const sections = ['#hero', '#viewer', '#info', '#game', '#contact']
     
@@ -52,7 +65,22 @@ export default function App() {
       ctx.revert()
       ScrollTrigger.getAll().forEach((t) => t.kill())
     }
-  }, [launched])
+  }, [launched, isGameRoute])
+
+  if (isGameRoute) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        {/* Starfield Background */}
+        <Starfield />
+
+        {/* CRT Scanline Overlay */}
+        <div className="scanline-overlay" />
+
+        {/* Full screen simulator */}
+        <GamePage />
+      </QueryClientProvider>
+    )
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

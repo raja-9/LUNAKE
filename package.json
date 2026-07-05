@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^5.4.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
+    "@splinetool/react-spline": "^4.1.0",
     "@tanstack/react-query": "^5.101.1",
     "canvas-confetti": "^1.9.4",
     "gsap": "^3.15.0",
